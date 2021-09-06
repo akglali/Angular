@@ -1,0 +1,10 @@
+.topdiv{
+  @apply flex flex-col m-auto p-6 max-w-2xl  border-4  border-black rounded-2xl  inline-block mt-2
+}
+.username{
+   @apply inset-0 text-2xl
+}
+
+.content{
+  @apply ml-5 mr-5 h-auto mt-3  break-words text-xl
+}

@@ -1,0 +1,39 @@
+<div class="flex flex-col h-screen">
+  <div class="m-auto flex flex-col justify-center">
+
+    <label class="outline-none">Username
+      <input [(ngModel)]="username" id='username' class='input' minlength="6" maxlength="24"
+             type='text' placeholder="Please enter your username" #usernameLen="ngModel" required/>
+    </label>
+    <div class="text-red-500 ml-24" *ngIf="usernameLen.errors?.minlength">
+      More than 6 characters
+    </div>
+    <div class="text-red-500 ml-24" *ngIf="usernameLen.errors?.maxlength">
+      Less than 24 characters
+    </div>
+
+
+    <label className="outline-none">Password:
+      <input [(ngModel)]="password" id='password' class='input'
+             type='password' placeholder="Please enter your password" minlength="6"  maxlength="24" #passwordLen="ngModel" required/>
+    </label>
+    <div class="text-red-500 ml-24" *ngIf="passwordLen.errors?.minlength">
+      More than 6 characters
+    </div>
+    <div class="text-red-500 ml-24" *ngIf="passwordLen.errors?.maxlength">
+      Less than 24 characters
+    </div>
+    <div class="flex flex-row mt-4 ml-20">
+      <button type="submit"
+              class="button"
+              (click)="addUser()">Sign Up
+      </button>
+      <button type="submit"
+              (click)="login()"
+              class="button" >
+        Log in
+      </button>
+    </div>
+
+  </div>
+</div>
