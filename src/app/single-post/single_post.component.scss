@@ -1,4 +1,4 @@
-.topdiv{
+.topDiv{
   @apply flex flex-col m-auto p-6 max-w-2xl  border-4  border-black rounded-2xl  inline-block mt-2
 }
 .username{
@@ -8,3 +8,17 @@
 .content{
   @apply ml-5 mr-5 h-auto mt-3  break-words text-xl
 }
+
+.commentDiv{
+  @apply flex flex-col  p-6 max-w-2xl  border-4  border-black rounded-2xl  inline-block mt-2
+}
+
+.commentTextArea{
+  @apply border-none bg-white p-3 m-1.5 w-80 break-words hover:shadow-md hover:bg-pink-400
+  focus-within:bg-pink-400 duration-500 hover:scale-50 focus-within:outline-none rounded-2xl outline-none text-white
+}
+.commentButton{
+  @apply border-none bg-gray-200 focus-within:outline-none hover:text-blue-50  ml-10 rounded-2xl
+  hover:shadow-lg w-1/4 hover:-translate-y-1 duration-500
+}
+

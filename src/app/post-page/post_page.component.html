@@ -1,11 +1,24 @@
 <div *ngIf="showButton">
-  <div class="topdiv {{ar.Color}}" *ngFor="let ar of allPosts" (click)="getPostInfo(ar.PostId)">
+  <div class="topdiv {{ar.Color}}" *ngFor="let ar of allPosts">
     <div class="flex justify-end">
-      <button mat-button >
+      <button mat-button [mat-menu-trigger-for]="menu">
         <mat-icon>more_vert</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="editPost(ar.PostId)" *ngIf="ar.Owner">
+          <mat-icon>edit</mat-icon>
+          <span >Edit</span></button>
+        <button mat-menu-item *ngIf="ar.Owner">
+          <mat-icon>delete_forever</mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item *ngIf="!ar.Owner">
+          <mat-icon>report</mat-icon>
+          <span>Report</span></button>
+      </mat-menu>
       </button>
 
     </div>
+  <div (click)="getPostInfo(ar.PostId)">
     <h4 class="username {{ar.Color}}">{{ar.VirtualName}} </h4>
     <p class="content">{{ar.TextContent}}</p>
     <div class='flex justify-end inline-block'>
@@ -20,6 +33,7 @@
       </a>
     </div>
     <p class="flex justify-end">{{ar.DateCreated}}</p>
+  </div>
   </div>
 
 </div>

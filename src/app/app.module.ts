@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { SinglePostComponent } from './single-post/single-post.component';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import {MatIconModule} from "@angular/material/icon";
     HttpClientModule,
     FormsModule,
     MatMenuModule,
-    MatIconModule
+    MatButtonModule,
+    MatIconModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
