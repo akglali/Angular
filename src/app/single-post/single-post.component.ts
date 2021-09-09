@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Comment} from "../helpers/comment.interface";
 import {Post} from "../helpers/post.interface";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-single-post',
@@ -21,7 +22,7 @@ export class SinglePostComponent implements OnInit {
   edit = false;
   postId: string | null | undefined;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -38,13 +39,24 @@ export class SinglePostComponent implements OnInit {
   }
 
   editText() {
-    this.http.post<Post>(this.postUrl + "edit/" + this.postId, {textField: this.editTextField}, {headers: {'Token': this.token}}).subscribe((data:any) => {
+    this.http.post<Post>(this.postUrl + "edit/" + this.postId, {textField: this.editTextField}, {headers: {'Token': this.token}}).subscribe((data: any) => {
       let dateYear = new Date(data.DateCreated).toLocaleDateString()
       let dateTime = new Date(data.DateCreated).toLocaleTimeString()
       data.DateCreated = dateYear + " " + dateTime;
-      this.singlePost[0].DateCreated=data.DateCreated;
-      this.singlePost[0].TextContent=data.TextContent;
-    },(error) => {
+      this.singlePost[0].DateCreated = data.DateCreated;
+      this.singlePost[0].TextContent = data.TextContent;
+    }, (error) => {
+      alert(error.error.Error)
+    })
+  }
+
+  deletePost(postId: string) {
+    this.http.get<Post>(this.postUrl + "delete/" + postId, {headers: {"Token": this.token}}).subscribe(data => {
+      this.singlePost.splice(0, 1)
+      this.router.navigate(['post_page']);
+      console.log(data)
+
+    }, (error) => {
       alert(error.error.Error)
     })
   }

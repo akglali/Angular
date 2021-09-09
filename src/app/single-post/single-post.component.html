@@ -2,18 +2,18 @@
   <div class="flex justify-end">
     <button mat-button [mat-menu-trigger-for]="menu">
       <mat-icon>more_vert</mat-icon>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item *ngIf="ar.Owner" (click)="editStatus()">
-        <mat-icon>edit</mat-icon>
-        <span >Edit</span></button>
-      <button mat-menu-item *ngIf="ar.Owner">
-        <mat-icon>delete_forever</mat-icon>
-        <span>Delete</span>
-      </button>
-      <button mat-menu-item *ngIf="!ar.Owner">
-        <mat-icon>report</mat-icon>
-        <span>Report</span></button>
-    </mat-menu>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="ar.Owner" (click)="editStatus()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span></button>
+        <button mat-menu-item *ngIf="ar.Owner" (click)="deletePost(ar.PostId)">
+          <mat-icon>delete_forever</mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item *ngIf="!ar.Owner">
+          <mat-icon>report</mat-icon>
+          <span>Report</span></button>
+      </mat-menu>
     </button>
 
   </div>
@@ -21,12 +21,13 @@
   <p class="content">{{ar.TextContent}}</p>
   <div class="flex flex-row" *ngIf="edit">
     <div class="flex flex-col">
-     <textarea class="commentTextArea" id="editInput" #editTextFieldLen="ngModel" [(ngModel)]="editTextField" minlength="6"
+     <textarea class="commentTextArea" id="editInput" #editTextFieldLen="ngModel" [(ngModel)]="editTextField"
+               minlength="6"
                required="required"></textarea>
-    <p class="text-red-500 ml-4" *ngIf="editTextFieldLen.errors?.minlength">
-      Comment must be more than 6 characters
-    </p>
-      </div>
+      <p class="text-red-500 ml-4" *ngIf="editTextFieldLen.errors?.minlength">
+        Comment must be more than 6 characters
+      </p>
+    </div>
     <button class='commentButton' (click)="editText()">Edit</button>
   </div>
 

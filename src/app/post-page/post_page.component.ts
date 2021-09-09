@@ -22,18 +22,20 @@ export class PostPageComponent implements OnInit {
     this.getUserPosts()
   }
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+  }
+
   // this method will get the user's post
-  getUserPosts(){
-    this.http.get(this.url+"getowner",{headers:{'Token':this.token}}).subscribe((data:any)=>{
-        for(let val  in data){
-          for (let post in this.allPosts){
-            if(this.allPosts[post].PostId===data[val]){
-              this.allPosts[post].Owner=true;
-            }
+  getUserPosts() {
+    this.http.get(this.url + "getowner", {headers: {'Token': this.token}}).subscribe((data: any) => {
+      for (let val in data) {
+        for (let post in this.allPosts) {
+          if (this.allPosts[post].PostId === data[val]) {
+            this.allPosts[post].Owner = true;
           }
         }
-    },(error)=>{
+      }
+    }, (error) => {
       alert(error.error.Error)
     })
   }
@@ -47,9 +49,22 @@ export class PostPageComponent implements OnInit {
         data[val].DateCreated = dateYear + " " + dateTime;
         this.allPosts.push(data[val])
       }
+
     }, (error) => {
       alert(error.error.Error);
     });
+  }
+
+  deletePost(postId: string) {
+    this.http.get<Post>(this.url + "delete/" + postId, {headers: {"Token": this.token}}).subscribe(data => {
+      let index = this.allPosts.map(function (x) {
+        return x.PostId;
+      }).indexOf(postId)
+      console.log(data)
+      this.allPosts.splice(index, 1)
+    }, (error) => {
+      alert(error.error.Error)
+    })
   }
 
   // showAll helps to show post or to create new post
@@ -83,7 +98,7 @@ export class PostPageComponent implements OnInit {
         PostId: data.PostId,
         TextContent: this.textField,
         VirtualName: data.VirtualName,
-        Owner:true
+        Owner: true
       })
     }, (error) => {
       alert(error.error.Error);
