@@ -27,7 +27,7 @@ export class PostPageComponent implements OnInit {
 
   // this method will get the user's post
   getUserPosts() {
-    this.http.get(this.url + "getowner", {headers: {'Token': this.token}}).subscribe((data: any) => {
+    this.http.get<Post[]>(this.url + "getowner", {headers: {'Token': this.token}}).subscribe((data:any) => {
       for (let val in data) {
         for (let post in this.allPosts) {
           if (this.allPosts[post].PostId === data[val]) {
@@ -42,7 +42,8 @@ export class PostPageComponent implements OnInit {
 
   //getAllPosts is getting all post info from the server and put them into the array
   getAllPosts() {
-    this.http.get<Post>(this.url + 'getallpost').subscribe((data: any) => {
+    this.http.get<Post[]>(this.url + 'getallpost').subscribe((data) => {
+      console.log(data)
       for (let val in data) {
         let dateYear = new Date(data[val].DateCreated).toLocaleDateString()
         let dateTime = new Date(data[val].DateCreated).toLocaleTimeString()
@@ -56,11 +57,11 @@ export class PostPageComponent implements OnInit {
   }
 
   deletePost(postId: string) {
-    this.http.get<Post>(this.url + "delete/" + postId, {headers: {"Token": this.token}}).subscribe(data => {
+    this.http.delete<Post>(this.url + "delete/" + postId, {headers: {"Token": this.token}}).subscribe(data => {
+      console.log(data)
       let index = this.allPosts.map(function (x) {
         return x.PostId;
       }).indexOf(postId)
-      console.log(data)
       this.allPosts.splice(index, 1)
     }, (error) => {
       alert(error.error.Error)

@@ -39,7 +39,7 @@ export class SinglePostComponent implements OnInit {
   }
 
   editText() {
-    this.http.post<Post>(this.postUrl + "edit/" + this.postId, {textField: this.editTextField}, {headers: {'Token': this.token}}).subscribe((data: any) => {
+    this.http.put<Post>(this.postUrl + "edit/" + this.postId, {textField: this.editTextField}, {headers: {'Token': this.token}}).subscribe((data: any) => {
       let dateYear = new Date(data.DateCreated).toLocaleDateString()
       let dateTime = new Date(data.DateCreated).toLocaleTimeString()
       data.DateCreated = dateYear + " " + dateTime;
@@ -51,7 +51,7 @@ export class SinglePostComponent implements OnInit {
   }
 
   deletePost(postId: string) {
-    this.http.get<Post>(this.postUrl + "delete/" + postId, {headers: {"Token": this.token}}).subscribe(data => {
+    this.http.delete<Post>(this.postUrl + "delete/" + postId, {headers: {"Token": this.token}}).subscribe(data => {
       this.singlePost.splice(0, 1)
       this.router.navigate(['post_page']);
       console.log(data)
